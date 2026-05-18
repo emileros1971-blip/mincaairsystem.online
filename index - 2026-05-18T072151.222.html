@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minca Air System – Klimatizacija i Ventilacija</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:       #1A3A8F;
+    --blue-dark:  #112970;
+    --blue-light: #2B52C4;
+    --red:        #C8001E;
+    --red-dark:   #9E0017;
+    --red-light:  #E8002A;
+    --black:      #090C14;
+    --dark:       #0E1220;
+    --dark2:      #141825;
+    --dark3:      #1B2135;
+    --gray:       #7A8AAA;
+    --gray-light: #B0BEDA;
+    --white:      #FFFFFF;
+    --accent:     #2B52C4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(9,12,20,0.97);
+    border-bottom: 2px solid var(--blue);
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  /* SVG logo inline */
+  .nav-logo-svg {
+    height: 46px;
+    width: auto;
+  }
+
+  .logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .logo-name small {
+    display: block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--gray);
+    text-transform: uppercase;
+  }
+
+  nav ul { list-style: none; display: flex; gap: 36px; }
+
+  nav ul li a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul li a:hover { color: var(--blue-light); }
+
+  .nav-call {
+    background: var(--red) !important;
+    color: #fff !important;
+    padding: 9px 22px;
+    border-radius: 3px;
+    transition: background 0.2s !important;
+  }
+  .nav-call:hover { background: var(--red-dark) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    padding: 110px 6% 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Big watermark word */
+  .hero-bg-word {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(120px, 18vw, 260px);
+    color: rgba(43,82,196,0.07);
+    letter-spacing: -5px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  /* Flame + snowflake graphic in background */
+  .hero-gfx {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(120px, 16vw, 220px);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.12;
+    filter: blur(2px);
+    line-height: 1;
+  }
+
+  .hero-stripe {
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 0;
+    width: 5px;
+    background: linear-gradient(to bottom, var(--blue), var(--red));
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(43,82,196,0.12);
+    border: 1px solid rgba(43,82,196,0.4);
+    color: #7BA3FF;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 7px 18px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: blink 1.6s infinite;
+  }
+
+  @keyframes blink {
+    0%,100% { opacity:1; } 50% { opacity:0.15; }
+  }
+
+  .hero-alert {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-bottom: 22px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(54px, 8.5vw, 106px);
+    line-height: 0.93;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .hero h1 .accent { color: var(--red); }
+  .hero h1 .accent-blue { color: #5B8BFF; }
+
+  .hero-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(20px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--gray);
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    line-height: 1.15;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--gray-light);
+    max-width: 520px;
+    margin-bottom: 36px;
+    line-height: 1.75;
+  }
+
+  .hero-checks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+
+  .hero-check {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--gray-light);
+    font-weight: 500;
+  }
+
+  .check-icon {
+    width: 20px; height: 20px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: white;
+    font-weight: 700;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .btn-pozovi {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 18px 40px;
+    border-radius: 3px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-pozovi:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+  .hero-phone-link {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: 3px;
+    border-bottom: 2px solid var(--blue);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .hero-phone-link:hover { color: #5B8BFF; }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid #1a2035;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--blue-light);
+    line-height: 1;
+  }
+
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  /* ── SHARED SECTION ── */
+  section { padding: 90px 6%; }
+
+  .s-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    margin-bottom: 14px;
+  }
+
+  .s-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 6vw, 70px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .s-desc {
+    font-size: 16px;
+    color: var(--gray-light);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 52px;
+  }
+
+  /* ── USLUGE ── */
+  .usluge-sec { background: var(--dark); border-top: 3px solid var(--blue); }
+
+  .usluge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .usl-card {
+    background: var(--dark2);
+    border: 1px solid #1e2540;
+    border-left: 3px solid var(--blue);
+    border-radius: 4px;
+    padding: 28px 26px 30px;
+    transition: border-color 0.25s, transform 0.2s, background 0.25s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .usl-card:hover {
+    background: #1a2035;
+    border-color: var(--blue-light);
+    transform: translateY(-4px);
+  }
+
+  .usl-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #1e2540;
+    position: relative;
+  }
+
+  .usl-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 40px; height: 2px;
+    background: var(--blue-light);
+  }
+
+  .usl-ico {
+    width: 48px; height: 48px;
+    background: rgba(43,82,196,0.12);
+    border: 1px solid rgba(43,82,196,0.3);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .usl-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+
+  .usl-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .usl-list li {
+    font-size: 14px;
+    color: var(--gray-light);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .usl-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--blue-light);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+
+  /* ── ZAŠTO MI ── */
+  .zasto-sec { background: var(--black); }
+
+  .zasto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: #1a2035;
+  }
+
+  .zas-card {
+    background: var(--black);
+    padding: 40px 30px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .zas-card:hover { background: #0e1220; }
+
+  .zas-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--blue), var(--red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+
+  .zas-card:hover::after { transform: scaleX(1); }
+
+  .zas-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 68px;
+    color: rgba(43,82,196,0.1);
+    line-height: 1;
+    position: absolute;
+    top: 12px; right: 18px;
+    pointer-events: none;
+  }
+
+  .zas-ico { font-size: 32px; margin-bottom: 16px; }
+
+  .zas-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+    position: relative;
+  }
+
+  .zas-desc { font-size: 14px; color: var(--gray); line-height: 1.65; position: relative; }
+
+  /* ── UPOZORENJE ── */
+  .upoz-sec { background: var(--dark); border-top: 3px solid var(--red); }
+
+  .upoz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 2px;
+    background: #1a2035;
+  }
+
+  .upoz-card {
+    background: var(--dark2);
+    padding: 28px 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    transition: background 0.2s;
+  }
+
+  .upoz-card:hover { background: #1a2040; }
+
+  .upoz-ico {
+    width: 46px; height: 46px;
+    background: rgba(200,0,30,0.12);
+    border: 1px solid rgba(200,0,30,0.28);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .upoz-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 5px;
+  }
+
+  .upoz-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+  .upoz-banner {
+    margin-top: 36px;
+    background: rgba(200,0,30,0.09);
+    border-left: 4px solid var(--red);
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .upoz-banner p { font-size: 15px; color: #FF6680; font-weight: 600; line-height: 1.6; }
+
+  /* ── KONTAKT ── */
+  .kontakt-sec { background: var(--black); }
+
+  .lok-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .lok-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid #1a2035;
+  }
+
+  .lok-ico {
+    width: 44px; height: 44px;
+    background: rgba(43,82,196,0.1);
+    border: 1px solid rgba(43,82,196,0.25);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .lok-lbl { font-size: 11px; color: var(--gray); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 5px; }
+
+  .lok-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: block;
+  }
+
+  .lok-val:hover { color: #5B8BFF; }
+  .lok-sub { font-size: 13px; color: var(--gray); margin-top: 4px; }
+
+  .cta-pozovi {
+    background: linear-gradient(135deg, var(--blue-dark), var(--red-dark));
+    padding: 34px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 36px;
+  }
+
+  .cta-pozovi p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .cta-pozovi a {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 46px;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 4px;
+    transition: opacity 0.2s;
+    display: block;
+  }
+
+  .cta-pozovi a:hover { opacity: 0.82; }
+
+  .instagram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+  .instagram-link:hover { color: #fff; }
+
+  /* region info box */
+  .region-box {
+    background: var(--dark3);
+    border: 1px solid #1e2540;
+    border-radius: 4px;
+    padding: 28px;
+    margin-top: 36px;
+  }
+
+  .region-box h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--gray-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .region-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .region-list li {
+    background: rgba(43,82,196,0.12);
+    border: 1px solid rgba(43,82,196,0.25);
+    color: var(--gray-light);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  /* ── LOGO SECTION ── */
+  .logo-sec {
+    background: var(--dark);
+    text-align: center;
+    padding: 60px 6%;
+    border-top: 1px solid #1a2035;
+  }
+
+  /* SVG watermark logo shown big */
+  .big-logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .big-logo-wrap svg { width: min(420px, 80vw); height: auto; }
+
+  .logo-tagline {
+    font-size: 13px;
+    color: var(--gray);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid #1a2035;
+    padding: 38px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .foot-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2.5px;
+    color: var(--white);
+  }
+
+  .foot-logo span { color: #5B8BFF; }
+
+  .foot-mid { font-size: 13px; color: var(--gray); text-align: center; line-height: 1.6; }
+
+  .foot-phone {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--red-light);
+    letter-spacing: 2.5px;
+    text-decoration: none;
+  }
+
+  /* ── FLOATING CTA ── */
+  .float-call {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 28px rgba(200,0,30,0.55);
+    animation: glow 2s infinite;
+  }
+
+  @keyframes glow {
+    0%,100% { box-shadow: 0 4px 28px rgba(200,0,30,0.55); }
+    50% { box-shadow: 0 4px 48px rgba(200,0,30,0.9); }
+  }
+
+  .float-call:hover { background: var(--red-dark); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    nav ul { display: none; }
+    .lok-inner { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .float-call .lbl { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <!-- Inline SVG logo (simplified Minca brand mark) -->
+    <svg class="nav-logo-svg" viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+      <!-- blue snowflake circle -->
+      <circle cx="25" cy="25" r="22" fill="#1A3A8F"/>
+      <text x="25" y="31" text-anchor="middle" font-size="22" fill="white">❄</text>
+      <!-- red flame circle -->
+      <circle cx="60" cy="25" r="12" fill="#C8001E"/>
+      <text x="60" y="30" text-anchor="middle" font-size="14" fill="white">🔥</text>
+      <!-- wordmark -->
+      <text x="80" y="22" font-family="'Bebas Neue', sans-serif" font-size="22" fill="white" letter-spacing="2">MINCA</text>
+      <text x="80" y="36" font-family="'Barlow', sans-serif" font-size="10" fill="#7A8AAA" letter-spacing="3" font-weight="700">AIR SYSTEM</text>
+    </svg>
+  </a>
+  <ul>
+    <li><a href="#usluge">Usluge</a></li>
+    <li><a href="#zasto">Zašto mi</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="tel:0628048750" class="nav-call">Pozovi</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-word">KLIMA</div>
+  <div class="hero-gfx">❄🔥</div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Niš i okolina – Brza i pouzdana usluga
+    </div>
+    <div class="hero-alert">⚠️ Ne čekaj da klima crkne na +40!</div>
+    <h1>DIŠI PUNIM<br><span class="accent">PLUĆIMA!</span></h1>
+    <div class="hero-tagline">Klimatizacija · Ventilacija · Servis</div>
+    <p class="hero-desc">Profesionalna ugradnja, servis i popravka klima uređaja, dubinsko čišćenje (dezinfekcija) i kompletan servis ventilacionih sistema za kuhinje, lokale, haube i industrijske objekte.</p>
+    <div class="hero-checks">
+      <div class="hero-check"><div class="check-icon">✓</div>Iskusni stručnjaci</div>
+      <div class="hero-check"><div class="check-icon">✓</div>Garancija na ugrađene uređaje</div>
+      <div class="hero-check"><div class="check-icon">✓</div>Profesionalna oprema</div>
+      <div class="hero-check"><div class="check-icon">✓</div>Sigurno, čisto i kvalitetno</div>
+    </div>
+    <div class="hero-actions">
+      <a href="tel:0628048750" class="btn-pozovi">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Zakaži servis
+      </a>
+      <a href="tel:0628048750" class="hero-phone-link">062 80 48 750</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-lbl">Vrste usluga</div>
+      </div>
+      <div>
+        <div class="stat-num">Brzo</div>
+        <div class="stat-lbl">Bez čekanja</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl">Garancija</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGO SHOWCASE -->
+<div class="logo-sec">
+  <div class="big-logo-wrap">
+    <!-- Recreated Minca Air System logo in SVG -->
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2B52C4"/>
+          <stop offset="100%" style="stop-color:#1A3A8F"/>
+        </linearGradient>
+        <linearGradient id="redBand" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#1A3A8F"/>
+          <stop offset="40%" style="stop-color:#C8001E"/>
+          <stop offset="100%" style="stop-color:#C8001E"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Snowflake -->
+      <text x="385" y="55" font-size="52" fill="#5B8BFF" filter="url(#glow)" opacity="0.9">❄</text>
+
+      <!-- Flame -->
+      <text x="415" y="90" font-size="58" fill="#FF6600" filter="url(#glow)" opacity="0.85">🔥</text>
+
+      <!-- MINCA lettering -->
+      <text x="20" y="98"
+            font-family="'Bebas Neue', Impact, sans-serif"
+            font-size="90"
+            fill="url(#blueGrad)"
+            letter-spacing="6"
+            filter="url(#glow)">MINCA</text>
+
+      <!-- Red swoosh band -->
+      <path d="M10,108 Q250,118 480,105 L480,130 Q250,143 10,133 Z" fill="url(#redBand)" opacity="0.95"/>
+
+      <!-- AIR SYSTEM on band -->
+      <text x="250" y="125"
+            text-anchor="middle"
+            font-family="'Barlow Condensed', 'Barlow', sans-serif"
+            font-size="20"
+            font-weight="800"
+            fill="white"
+            letter-spacing="5">AIR SYSTEM</text>
+
+      <!-- Snowflake icon left -->
+      <circle cx="32" cy="160" r="18" fill="none" stroke="#2B52C4" stroke-width="2"/>
+      <text x="32" y="166" text-anchor="middle" font-size="18" fill="#5B8BFF">❄</text>
+
+      <!-- KLIMATIZACIJA -->
+      <text x="60" y="163"
+            font-family="'Barlow Condensed', sans-serif"
+            font-size="18"
+            font-weight="800"
+            fill="#2B52C4"
+            letter-spacing="1">KLIMATIZACIJA</text>
+
+      <!-- divider -->
+      <line x1="245" y1="150" x2="245" y2="175" stroke="#555" stroke-width="1"/>
+
+      <!-- VENTILACIJA -->
+      <text x="258" y="163"
+            font-family="'Barlow Condensed', sans-serif"
+            font-size="18"
+            font-weight="800"
+            fill="#2B52C4"
+            letter-spacing="1">VENTILACIJA</text>
+
+      <!-- fan icon right -->
+      <circle cx="438" cy="160" r="18" fill="none" stroke="#2B52C4" stroke-width="2"/>
+      <text x="438" y="166" text-anchor="middle" font-size="16" fill="#5B8BFF">🌀</text>
+
+      <!-- tagline -->
+      <text x="250" y="185"
+            text-anchor="middle"
+            font-family="'Barlow', sans-serif"
+            font-size="11"
+            fill="#7A8AAA"
+            letter-spacing="4">KVALITET  •  POVERENJE  •  KOMFOR</text>
+    </svg>
+  </div>
+  <div class="logo-tagline">Kvalitet · Poverenje · Komfor</div>
+</div>
+
+<!-- USLUGE -->
+<section class="usluge-sec" id="usluge">
+  <div class="s-label">Sve na jednom mestu</div>
+  <h2 class="s-title">Naše usluge</h2>
+  <p class="s-desc">Kompletna rešenja za klimatizaciju i ventilaciju — ugradnja, servis, popravka i čišćenje, sve na jednom mestu.</p>
+
+  <div class="usluge-grid">
+
+    <div class="usl-card">
+      <div class="usl-header">
+        <div class="usl-ico">❄️</div>
+        <div class="usl-title">Ugradnja klima uređaja</div>
+      </div>
+      <ul class="usl-list">
+        <li>Ugradnja split sistema svih marki</li>
+        <li>Montaža unutrašnje i spoljašnje jedinice</li>
+        <li>Instalacija bakarnih cevi i elektrike</li>
+        <li>Pode šavanje i testiranje sistema</li>
+        <li>Savet oko odabira odgovarajućeg uređaja</li>
+      </ul>
+    </div>
+
+    <div class="usl-card">
+      <div class="usl-header">
+        <div class="usl-ico">🔧</div>
+        <div class="usl-title">Servis i popravka</div>
+      </div>
+      <ul class="usl-list">
+        <li>Redovan godišnji servis klima uređaja</li>
+        <li>Dopuna freona i proverava pritiska</li>
+        <li>Dijagnostika i otklanjanje kvarova</li>
+        <li>Zamena kompresora i delova</li>
+        <li>Servis svih marki i modela</li>
+        <li>Redovan servis = duži vek klime i manja potrošnja!</li>
+      </ul>
+    </div>
+
+    <div class="usl-card">
+      <div class="usl-header">
+        <div class="usl-ico">🧼</div>
+        <div class="usl-title">Dubinsko čišćenje (dezinfekcija)</div>
+      </div>
+      <ul class="usl-list">
+        <li>Profesionalno čišćenje unutrašnje jedinice</li>
+        <li>Dezinfekcija evaporatora i kućišta</li>
+        <li>Čišćenje filtera i drenaže</li>
+        <li>Uklanjanje bakterija, buđi i prašine</li>
+        <li>Svež vazduh — čist prostor!</li>
+        <li>Da li znaš šta udišeš iz nečišćene klime? Ne rizikuj!</li>
+      </ul>
+    </div>
+
+    <div class="usl-card">
+      <div class="usl-header">
+        <div class="usl-ico">💨</div>
+        <div class="usl-title">Ventilacija — kuhinje, lokali, haube i sistemi</div>
+      </div>
+      <ul class="usl-list">
+        <li>Projektovanje i ugradnja ventilacionih sistema</li>
+        <li>Servis i čišćenje kuhinjskih haubi</li>
+        <li>Ventilacija ugostiteljskih objekata i lokala</li>
+        <li>Industrijska i kanalska ventilacija</li>
+        <li>Zamena i montaža ventilatora</li>
+        <li>Održavanje i periodični pregledi</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ZAŠTO MI -->
+<section class="zasto-sec" id="zasto">
+  <div class="s-label">Naša garancija</div>
+  <h2 class="s-title">Zašto Minca<br>Air System?</h2>
+
+  <div class="zasto-grid">
+    <div class="zas-card">
+      <div class="zas-num">01</div>
+      <div class="zas-ico">👨‍🔧</div>
+      <div class="zas-title">Iskusni stručnjaci</div>
+      <div class="zas-desc">Tim sertifikovanih majstora sa godinama iskustva u montaži i servisu klima i ventilacionih sistema.</div>
+    </div>
+    <div class="zas-card">
+      <div class="zas-num">02</div>
+      <div class="zas-ico">🛡️</div>
+      <div class="zas-title">Garancija na ugrađene uređaje</div>
+      <div class="zas-desc">Garantujemo kvalitet ugradnje i ispravnost sistema — stojimo iza svakog posla koji uradimo.</div>
+    </div>
+    <div class="zas-card">
+      <div class="zas-num">03</div>
+      <div class="zas-ico">🔩</div>
+      <div class="zas-title">Profesionalna oprema</div>
+      <div class="zas-desc">Koristimo isključivo profesionalnu opremu i originalne delove za dugotrajno i pouzdano rešenje.</div>
+    </div>
+    <div class="zas-card">
+      <div class="zas-num">04</div>
+      <div class="zas-ico">✅</div>
+      <div class="zas-title">Sigurno, čisto i kvalitetno</div>
+      <div class="zas-desc">Svaki posao obavljamo uredno, poštujući sve bezbednosne standarde — ostavljamo čist i uredan prostor.</div>
+    </div>
+  </div>
+</section>
+
+<!-- UPOZORENJE — zašto je važan redovan servis -->
+<section class="upoz-sec" id="vaznost">
+  <div class="s-label">Ne rizikuj!</div>
+  <h2 class="s-title">Da li znaš šta<br>udišeš?</h2>
+  <p class="s-desc">Nečišćena klima je leglo bakterija, buđi i prašine. Zakaži servis na vreme!</p>
+
+  <div class="upoz-grid">
+    <div class="upoz-card">
+      <div class="upoz-ico">🦠</div>
+      <div>
+        <div class="upoz-title">Bakterije i plesni</div>
+        <div class="upoz-desc">Vlažno kućište klime je idealno okruženje za razvoj bakterija i buđi koje se šire vazduhom koji dišeš.</div>
+      </div>
+    </div>
+    <div class="upoz-card">
+      <div class="upoz-ico">🌫️</div>
+      <div>
+        <div class="upoz-title">Prašina i alergeni</div>
+        <div class="upoz-desc">Začepljeni filteri i evaporator rasipaju prašinu i alergene po prostoriji — loše za zdravlje cele porodice.</div>
+      </div>
+    </div>
+    <div class="upoz-card">
+      <div class="upoz-ico">⚡</div>
+      <div>
+        <div class="upoz-title">Veća potrošnja struje</div>
+        <div class="upoz-desc">Prljava klima troši i do 30% više struje jer joj treba više energije da postigne željenu temperaturu.</div>
+      </div>
+    </div>
+    <div class="upoz-card">
+      <div class="upoz-ico">💸</div>
+      <div>
+        <div class="upoz-title">Skupi kvarovi</div>
+        <div class="upoz-desc">Zanemareni servis vodi do ozbiljnih kvarova i skupih popravki. Redovan pregled je daleko jeftiniji.</div>
+      </div>
+    </div>
+    <div class="upoz-card">
+      <div class="upoz-ico">🌡️</div>
+      <div>
+        <div class="upoz-title">Slabije hlađenje / grejanje</div>
+        <div class="upoz-desc">Nečist evaporator ne može efikasno da prenosi toplotu — klima radi, ali prostorija se ne hladi dobro.</div>
+      </div>
+    </div>
+    <div class="upoz-card">
+      <div class="upoz-ico">📉</div>
+      <div>
+        <div class="upoz-title">Kraći vek uređaja</div>
+        <div class="upoz-desc">Bez servisiranja kompresori i drugi delovi brže propadaju. Redovan servis produžava životni vek klime za godine.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="upoz-banner">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="#C8001E" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+    <p>Redovan servis = duži vek klime i manja potrošnja! Zakaži odmah na <strong>062 80 48 750</strong> — brza i pouzdana usluga širom Niša i okoline.</p>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="kontakt-sec" id="kontakt">
+  <div class="s-label">Pronađi nas</div>
+  <h2 class="s-title">Kontakt</h2>
+
+  <div class="lok-inner">
+    <div>
+      <div class="lok-item">
+        <div class="lok-ico">📍</div>
+        <div>
+          <div class="lok-lbl">Područje rada</div>
+          <div class="lok-val">Niš i okolina</div>
+          <div class="lok-sub">Dolazimo na adresu — brzo i pouzdano</div>
+        </div>
+      </div>
+      <div class="lok-item">
+        <div class="lok-ico">📞</div>
+        <div>
+          <div class="lok-lbl">Telefon</div>
+          <a href="tel:0628048750" class="lok-val">062 80 48 750</a>
+          <div class="lok-sub">Pozovi ili pošalji poruku</div>
+        </div>
+      </div>
+      <div class="lok-item">
+        <div class="lok-ico">📸</div>
+        <div>
+          <div class="lok-lbl">Instagram</div>
+          <a href="https://instagram.com/_minca_air_system_" target="_blank" class="lok-val">@_minca_air_system_</a>
+        </div>
+      </div>
+      <div class="lok-item">
+        <div class="lok-ico">🕐</div>
+        <div>
+          <div class="lok-lbl">Dostupnost</div>
+          <div class="lok-val" style="font-size:16px;">Pon – Sub: 08:00 – 20:00</div>
+          <div class="lok-sub">Hitni slučajevi — po dogovoru</div>
+        </div>
+      </div>
+
+      <div class="cta-pozovi">
+        <p>Zakaži servis odmah</p>
+        <a href="tel:0628048750">062 80 48 750</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="region-box">
+        <h4>📍 Oblasti koje pokrivamo</h4>
+        <ul class="region-list">
+          <li>Niš</li>
+          <li>Niška Banja</li>
+          <li>Sićevo</li>
+          <li>Aleksinac</li>
+          <li>Merošina</li>
+          <li>Ražanj</li>
+          <li>Doljevac</li>
+          <li>Gadžin Han</li>
+          <li>Bela Palanka</li>
+          <li>Pirot</li>
+          <li>i šira okolina...</li>
+        </ul>
+      </div>
+
+      <!-- Quick service info box -->
+      <div style="margin-top:24px; background:var(--dark2); border:1px solid #1e2540; border-radius:4px; padding:28px;">
+        <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; color:var(--white); margin-bottom:18px; letter-spacing:0.5px;">Šta možeš da očekuješ:</h4>
+        <ul class="usl-list" style="gap:12px;">
+          <li>Brz odgovor i zakazivanje u kratkom roku</li>
+          <li>Dolazak na adresu u dogovorenom terminu</li>
+          <li>Dijagnoza i objašnjenje pre početka rada</li>
+          <li>Transparentna cena bez skrivenih troškova</li>
+          <li>Urednost i profesionalnost na svakom koraku</li>
+          <li>Garancija na izvedene radove</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">MINCA <span>AIR SYSTEM</span></div>
+  <div class="foot-mid">
+    Niš i okolina · 062 80 48 750<br>
+    &copy; 2025 Minca Air System. Sva prava zadržana.
+  </div>
+  <a href="tel:0628048750" class="foot-phone">062 80 48 750</a>
+</footer>
+
+<!-- FLOATING CALL BUTTON -->
+<a href="tel:0628048750" class="float-call">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+  </svg>
+  <span class="lbl">Pozovi odmah</span>
+</a>
+
+</body>
+</html>
