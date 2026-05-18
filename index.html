@@ -9,27 +9,39 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --blue:       #1A3A8F;
-    --blue-dark:  #112970;
-    --blue-light: #2B52C4;
-    --red:        #C8001E;
-    --red-dark:   #9E0017;
-    --red-light:  #E8002A;
-    --black:      #090C14;
-    --dark:       #0E1220;
-    --dark2:      #141825;
-    --dark3:      #1B2135;
-    --gray:       #7A8AAA;
-    --gray-light: #B0BEDA;
-    --white:      #FFFFFF;
-    --accent:     #2B52C4;
+    /* Brand blues */
+    --blue:        #1E3F9E;
+    --blue-dark:   #152D78;
+    --blue-light:  #4A72D4;
+    --blue-faint:  #3A5FC0;
+
+    /* Accent red — used ONLY for call-to-action button & floating pill */
+    --red-cta:     #C2001A;
+    --red-cta-dk:  #9A0015;
+
+    /* Muted warm-red used sparingly for accent text/borders — NOT harsh */
+    --rose:        #A0314A;
+    --rose-light:  #C96278;
+
+    /* Backgrounds — dark navy-slate, NOT pure black */
+    --bg-base:     #0D1221;
+    --bg-mid:      #111827;
+    --bg-card:     #161E30;
+    --bg-card2:    #1A2238;
+    --bg-card3:    #1E2840;
+
+    /* Text */
+    --gray:        #6B7FA8;
+    --gray-light:  #A8B8D8;
+    --silver:      #C8D4E8;
+    --white:       #EEF2FC;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Barlow', sans-serif;
-    background: var(--black);
+    background: var(--bg-base);
     color: var(--white);
     line-height: 1.6;
     overflow-x: hidden;
@@ -40,32 +52,34 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    background: rgba(9,12,20,0.97);
-    border-bottom: 2px solid var(--blue);
+    background: rgba(13,18,33,0.97);
+    border-bottom: 1px solid rgba(74,114,212,0.3);
     padding: 0 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 68px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
   }
 
   .nav-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-decoration: none;
   }
 
-  /* SVG logo inline */
-  .nav-logo-svg {
-    height: 46px;
+  .nav-logo img {
+    height: 48px;
     width: auto;
+    /* logo has black bg — blend it away */
+    mix-blend-mode: lighten;
+    filter: brightness(1.05);
   }
 
   .logo-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
+    font-size: 21px;
     letter-spacing: 2px;
     color: var(--white);
     line-height: 1.1;
@@ -95,18 +109,21 @@
   nav ul li a:hover { color: var(--blue-light); }
 
   .nav-call {
-    background: var(--red) !important;
+    background: var(--red-cta) !important;
     color: #fff !important;
-    padding: 9px 22px;
-    border-radius: 3px;
+    padding: 9px 22px !important;
+    border-radius: 3px !important;
+    letter-spacing: 1.5px !important;
     transition: background 0.2s !important;
   }
-  .nav-call:hover { background: var(--red-dark) !important; color: #fff !important; }
+  .nav-call:hover { background: var(--red-cta-dk) !important; }
 
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
-    background: var(--black);
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 50%, rgba(30,63,158,0.18) 0%, transparent 70%),
+      var(--bg-base);
     display: flex;
     align-items: center;
     padding: 110px 6% 70px;
@@ -114,65 +131,50 @@
     overflow: hidden;
   }
 
-  /* Big watermark word */
-  .hero-bg-word {
+  /* Real logo as hero watermark — right side */
+  .hero-logo-watermark {
     position: absolute;
-    right: -20px;
+    right: -2%;
     top: 50%;
     transform: translateY(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(120px, 18vw, 260px);
-    color: rgba(43,82,196,0.07);
-    letter-spacing: -5px;
-    line-height: 1;
+    width: clamp(300px, 42vw, 600px);
+    height: auto;
+    opacity: 0.10;
+    mix-blend-mode: lighten;
     pointer-events: none;
     user-select: none;
-    white-space: nowrap;
-  }
-
-  /* Flame + snowflake graphic in background */
-  .hero-gfx {
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: clamp(120px, 16vw, 220px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.12;
-    filter: blur(2px);
-    line-height: 1;
+    filter: blur(0.5px) saturate(0.6);
   }
 
   .hero-stripe {
     position: absolute;
-    top: 0; bottom: 0;
-    right: 0;
-    width: 5px;
-    background: linear-gradient(to bottom, var(--blue), var(--red));
+    top: 0; bottom: 0; right: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--blue-light), var(--rose));
+    opacity: 0.7;
   }
 
-  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-content { position: relative; z-index: 2; max-width: 660px; }
 
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(43,82,196,0.12);
-    border: 1px solid rgba(43,82,196,0.4);
-    color: #7BA3FF;
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.35);
+    color: var(--blue-light);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2.5px;
     text-transform: uppercase;
     padding: 7px 18px;
     border-radius: 2px;
-    margin-bottom: 28px;
+    margin-bottom: 26px;
   }
 
   .badge-dot {
     width: 7px; height: 7px;
-    background: var(--red);
+    background: var(--rose-light);
     border-radius: 50%;
     animation: blink 1.6s infinite;
   }
@@ -181,54 +183,56 @@
     0%,100% { opacity:1; } 50% { opacity:0.15; }
   }
 
+  /* Alert strip — soft warm rose, not fire-engine red */
   .hero-alert {
     display: inline-block;
-    background: var(--red);
-    color: #fff;
+    background: rgba(160,49,74,0.18);
+    border: 1px solid rgba(201,98,120,0.4);
+    color: var(--rose-light);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
-    font-size: 16px;
+    font-size: 15px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 10px 20px;
+    padding: 9px 18px;
     border-radius: 3px;
     margin-bottom: 22px;
   }
 
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(54px, 8.5vw, 106px);
+    font-size: clamp(54px, 8.5vw, 108px);
     line-height: 0.93;
     letter-spacing: 2px;
     color: var(--white);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
-  .hero h1 .accent { color: var(--red); }
-  .hero h1 .accent-blue { color: #5B8BFF; }
+  /* Main accent on h1 — vivid blue, not red */
+  .hero h1 .accent { color: var(--blue-light); }
 
   .hero-tagline {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(20px, 3vw, 36px);
+    font-size: clamp(19px, 2.8vw, 34px);
     font-weight: 700;
     color: var(--gray);
     letter-spacing: 1px;
-    margin-bottom: 28px;
-    line-height: 1.15;
+    margin-bottom: 26px;
+    line-height: 1.2;
   }
 
   .hero-desc {
     font-size: 16px;
     color: var(--gray-light);
     max-width: 520px;
-    margin-bottom: 36px;
-    line-height: 1.75;
+    margin-bottom: 34px;
+    line-height: 1.8;
   }
 
   .hero-checks {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
     margin-bottom: 40px;
   }
 
@@ -237,19 +241,20 @@
     align-items: center;
     gap: 12px;
     font-size: 15px;
-    color: var(--gray-light);
+    color: var(--silver);
     font-weight: 500;
   }
 
   .check-icon {
     width: 20px; height: 20px;
-    background: var(--blue);
+    background: rgba(74,114,212,0.25);
+    border: 1px solid var(--blue-faint);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     font-size: 11px;
-    color: white;
-    font-weight: 700;
+    color: var(--blue-light);
+    font-weight: 900;
   }
 
   .hero-actions {
@@ -259,11 +264,12 @@
     flex-wrap: wrap;
   }
 
+  /* Main CTA — this one stays vivid red */
   .btn-pozovi {
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    background: var(--red);
+    background: var(--red-cta);
     color: #fff;
     text-decoration: none;
     font-family: 'Barlow Condensed', sans-serif;
@@ -271,30 +277,30 @@
     font-weight: 800;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 18px 40px;
+    padding: 17px 40px;
     border-radius: 3px;
     transition: background 0.2s, transform 0.15s;
   }
-  .btn-pozovi:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-pozovi:hover { background: var(--red-cta-dk); transform: translateY(-2px); }
 
   .hero-phone-link {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 28px;
-    color: var(--white);
+    color: var(--silver);
     text-decoration: none;
     letter-spacing: 3px;
-    border-bottom: 2px solid var(--blue);
+    border-bottom: 2px solid var(--blue-faint);
     padding-bottom: 2px;
     transition: color 0.2s;
   }
-  .hero-phone-link:hover { color: #5B8BFF; }
+  .hero-phone-link:hover { color: var(--blue-light); }
 
   .hero-stats {
     display: flex;
     gap: 48px;
-    margin-top: 56px;
-    padding-top: 40px;
-    border-top: 1px solid #1a2035;
+    margin-top: 54px;
+    padding-top: 38px;
+    border-top: 1px solid rgba(74,114,212,0.2);
   }
 
   .stat-num {
@@ -320,7 +326,7 @@
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--blue-light);
+    color: var(--blue-faint);
     margin-bottom: 14px;
   }
 
@@ -337,12 +343,45 @@
     font-size: 16px;
     color: var(--gray-light);
     max-width: 560px;
-    line-height: 1.75;
+    line-height: 1.8;
     margin-bottom: 52px;
   }
 
+  /* ── LOGO BAND ── */
+  .logo-band {
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(74,114,212,0.18);
+    border-bottom: 1px solid rgba(74,114,212,0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 52px 6%;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .logo-band img {
+    width: min(380px, 72vw);
+    height: auto;
+    mix-blend-mode: lighten;
+    filter: brightness(1.1) saturate(0.85);
+    opacity: 0.88;
+  }
+
+  .logo-band-sub {
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
   /* ── USLUGE ── */
-  .usluge-sec { background: var(--dark); border-top: 3px solid var(--blue); }
+  .usluge-sec {
+    background: var(--bg-mid);
+    border-top: 2px solid rgba(30,63,158,0.6);
+  }
 
   .usluge-grid {
     display: grid;
@@ -352,20 +391,21 @@
   }
 
   .usl-card {
-    background: var(--dark2);
-    border: 1px solid #1e2540;
-    border-left: 3px solid var(--blue);
-    border-radius: 4px;
+    background: var(--bg-card);
+    border: 1px solid rgba(74,114,212,0.18);
+    border-left: 3px solid var(--blue-faint);
+    border-radius: 6px;
     padding: 28px 26px 30px;
-    transition: border-color 0.25s, transform 0.2s, background 0.25s;
+    transition: border-color 0.25s, transform 0.2s, background 0.25s, box-shadow 0.25s;
     display: flex;
     flex-direction: column;
   }
 
   .usl-card:hover {
-    background: #1a2035;
+    background: var(--bg-card2);
     border-color: var(--blue-light);
     transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(30,63,158,0.2);
   }
 
   .usl-header {
@@ -374,7 +414,7 @@
     gap: 14px;
     margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid #1e2540;
+    border-bottom: 1px solid rgba(74,114,212,0.15);
     position: relative;
   }
 
@@ -382,15 +422,15 @@
     content: '';
     position: absolute;
     bottom: -1px; left: 0;
-    width: 40px; height: 2px;
+    width: 36px; height: 2px;
     background: var(--blue-light);
   }
 
   .usl-ico {
     width: 48px; height: 48px;
-    background: rgba(43,82,196,0.12);
-    border: 1px solid rgba(43,82,196,0.3);
-    border-radius: 4px;
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.25);
+    border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px;
     flex-shrink: 0;
@@ -398,7 +438,7 @@
 
   .usl-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 800;
     color: var(--white);
     text-transform: uppercase;
@@ -419,39 +459,41 @@
 
   .usl-list li::before {
     content: '';
-    width: 6px; height: 6px;
-    background: var(--blue-light);
+    width: 5px; height: 5px;
+    background: var(--blue-faint);
     border-radius: 50%;
     flex-shrink: 0;
     margin-top: 8px;
   }
 
   /* ── ZAŠTO MI ── */
-  .zasto-sec { background: var(--black); }
+  .zasto-sec { background: var(--bg-base); }
 
   .zasto-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1px;
-    background: #1a2035;
+    background: rgba(74,114,212,0.12);
+    border-radius: 6px;
+    overflow: hidden;
   }
 
   .zas-card {
-    background: var(--black);
+    background: var(--bg-base);
     padding: 40px 30px 36px;
     position: relative;
     overflow: hidden;
     transition: background 0.2s;
   }
 
-  .zas-card:hover { background: #0e1220; }
+  .zas-card:hover { background: var(--bg-mid); }
 
   .zas-card::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(to right, var(--blue), var(--red));
+    background: linear-gradient(to right, var(--blue-faint), var(--blue-light));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.35s;
@@ -462,55 +504,62 @@
   .zas-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 68px;
-    color: rgba(43,82,196,0.1);
+    color: rgba(74,114,212,0.08);
     line-height: 1;
     position: absolute;
     top: 12px; right: 18px;
     pointer-events: none;
   }
 
-  .zas-ico { font-size: 32px; margin-bottom: 16px; }
+  .zas-ico { font-size: 30px; margin-bottom: 16px; }
 
   .zas-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 800;
     color: var(--white);
     margin-bottom: 12px;
-    letter-spacing: 0.3px;
     position: relative;
   }
 
-  .zas-desc { font-size: 14px; color: var(--gray); line-height: 1.65; position: relative; }
+  .zas-desc { font-size: 14px; color: var(--gray); line-height: 1.7; position: relative; }
 
   /* ── UPOZORENJE ── */
-  .upoz-sec { background: var(--dark); border-top: 3px solid var(--red); }
+  .upoz-sec {
+    background: var(--bg-mid);
+    border-top: 2px solid rgba(160,49,74,0.4);
+  }
+
+  /* Muted rose label for this section */
+  .upoz-sec .s-label { color: var(--rose-light); }
 
   .upoz-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 2px;
-    background: #1a2035;
+    background: rgba(74,114,212,0.08);
+    border-radius: 6px;
+    overflow: hidden;
   }
 
   .upoz-card {
-    background: var(--dark2);
-    padding: 28px 30px;
+    background: var(--bg-card);
+    padding: 26px 28px;
     display: flex;
     align-items: flex-start;
     gap: 18px;
     transition: background 0.2s;
   }
 
-  .upoz-card:hover { background: #1a2040; }
+  .upoz-card:hover { background: var(--bg-card2); }
 
   .upoz-ico {
-    width: 46px; height: 46px;
-    background: rgba(200,0,30,0.12);
-    border: 1px solid rgba(200,0,30,0.28);
-    border-radius: 4px;
+    width: 44px; height: 44px;
+    background: rgba(160,49,74,0.1);
+    border: 1px solid rgba(160,49,74,0.25);
+    border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
     flex-shrink: 0;
   }
 
@@ -522,22 +571,25 @@
     margin-bottom: 5px;
   }
 
-  .upoz-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+  .upoz-desc { font-size: 13px; color: var(--gray); line-height: 1.55; }
 
   .upoz-banner {
     margin-top: 36px;
-    background: rgba(200,0,30,0.09);
-    border-left: 4px solid var(--red);
+    background: rgba(160,49,74,0.08);
+    border: 1px solid rgba(160,49,74,0.25);
+    border-left: 4px solid var(--rose);
     padding: 22px 28px;
+    border-radius: 0 4px 4px 0;
     display: flex;
     align-items: center;
     gap: 18px;
   }
 
-  .upoz-banner p { font-size: 15px; color: #FF6680; font-weight: 600; line-height: 1.6; }
+  .upoz-banner p { font-size: 15px; color: var(--rose-light); font-weight: 600; line-height: 1.65; }
+  .upoz-banner strong { color: var(--silver); }
 
   /* ── KONTAKT ── */
-  .kontakt-sec { background: var(--black); }
+  .kontakt-sec { background: var(--bg-base); }
 
   .lok-inner {
     display: grid;
@@ -551,14 +603,14 @@
     align-items: flex-start;
     gap: 18px;
     padding: 22px 0;
-    border-bottom: 1px solid #1a2035;
+    border-bottom: 1px solid rgba(74,114,212,0.14);
   }
 
   .lok-ico {
     width: 44px; height: 44px;
-    background: rgba(43,82,196,0.1);
-    border: 1px solid rgba(43,82,196,0.25);
-    border-radius: 4px;
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.22);
+    border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
     font-size: 20px;
     flex-shrink: 0;
@@ -572,24 +624,25 @@
     font-weight: 700;
     color: var(--white);
     text-decoration: none;
-    transition: color 0.2s;
     display: block;
+    transition: color 0.2s;
   }
+  .lok-val:hover { color: var(--blue-light); }
 
-  .lok-val:hover { color: #5B8BFF; }
   .lok-sub { font-size: 13px; color: var(--gray); margin-top: 4px; }
 
   .cta-pozovi {
-    background: linear-gradient(135deg, var(--blue-dark), var(--red-dark));
+    background: linear-gradient(135deg, var(--blue-dark) 0%, rgba(30,63,158,0.8) 100%);
+    border: 1px solid rgba(74,114,212,0.35);
     padding: 34px;
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: center;
     margin-top: 36px;
   }
 
   .cta-pozovi p {
     font-size: 12px;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255,255,255,0.6);
     letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: 700;
@@ -605,35 +658,18 @@
     transition: opacity 0.2s;
     display: block;
   }
+  .cta-pozovi a:hover { opacity: 0.8; }
 
-  .cta-pozovi a:hover { opacity: 0.82; }
-
-  .instagram-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 18px;
-    color: #aaa;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: color 0.2s;
-  }
-  .instagram-link:hover { color: #fff; }
-
-  /* region info box */
   .region-box {
-    background: var(--dark3);
-    border: 1px solid #1e2540;
-    border-radius: 4px;
+    background: var(--bg-card);
+    border: 1px solid rgba(74,114,212,0.18);
+    border-radius: 6px;
     padding: 28px;
-    margin-top: 36px;
   }
 
   .region-box h4 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     color: var(--gray-light);
     letter-spacing: 2px;
@@ -644,45 +680,36 @@
   .region-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
 
   .region-list li {
-    background: rgba(43,82,196,0.12);
-    border: 1px solid rgba(43,82,196,0.25);
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.22);
     color: var(--gray-light);
     font-size: 13px;
     font-weight: 600;
     padding: 5px 12px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
-  /* ── LOGO SECTION ── */
-  .logo-sec {
-    background: var(--dark);
-    text-align: center;
-    padding: 60px 6%;
-    border-top: 1px solid #1a2035;
+  .info-box {
+    margin-top: 20px;
+    background: var(--bg-card);
+    border: 1px solid rgba(74,114,212,0.18);
+    border-radius: 6px;
+    padding: 28px;
   }
 
-  /* SVG watermark logo shown big */
-  .big-logo-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .big-logo-wrap svg { width: min(420px, 80vw); height: auto; }
-
-  .logo-tagline {
-    font-size: 13px;
-    color: var(--gray);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-weight: 700;
+  .info-box h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
   }
 
   /* ── FOOTER ── */
   footer {
-    background: var(--dark);
-    border-top: 1px solid #1a2035;
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(74,114,212,0.18);
     padding: 38px 6%;
     display: flex;
     align-items: center;
@@ -698,25 +725,25 @@
     color: var(--white);
   }
 
-  .foot-logo span { color: #5B8BFF; }
-
+  .foot-logo span { color: var(--blue-light); }
   .foot-mid { font-size: 13px; color: var(--gray); text-align: center; line-height: 1.6; }
 
   .foot-phone {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 22px;
-    color: var(--red-light);
+    color: var(--blue-light);
     letter-spacing: 2.5px;
     text-decoration: none;
+    transition: color 0.2s;
   }
+  .foot-phone:hover { color: var(--white); }
 
-  /* ── FLOATING CTA ── */
+  /* ── FLOATING CTA — stays vivid red ── */
   .float-call {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
+    bottom: 28px; right: 28px;
     z-index: 999;
-    background: var(--red);
+    background: var(--red-cta);
     color: #fff;
     text-decoration: none;
     font-family: 'Barlow Condensed', sans-serif;
@@ -729,16 +756,16 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 4px 28px rgba(200,0,30,0.55);
-    animation: glow 2s infinite;
+    box-shadow: 0 4px 28px rgba(194,0,26,0.55);
+    animation: glow 2.2s infinite;
   }
 
   @keyframes glow {
-    0%,100% { box-shadow: 0 4px 28px rgba(200,0,30,0.55); }
-    50% { box-shadow: 0 4px 48px rgba(200,0,30,0.9); }
+    0%,100% { box-shadow: 0 4px 28px rgba(194,0,26,0.55); }
+    50%      { box-shadow: 0 4px 52px rgba(194,0,26,0.9); }
   }
 
-  .float-call:hover { background: var(--red-dark); }
+  .float-call:hover { background: var(--red-cta-dk); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
@@ -758,18 +785,8 @@
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">
-    <!-- Inline SVG logo (simplified Minca brand mark) -->
-    <svg class="nav-logo-svg" viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
-      <!-- blue snowflake circle -->
-      <circle cx="25" cy="25" r="22" fill="#1A3A8F"/>
-      <text x="25" y="31" text-anchor="middle" font-size="22" fill="white">❄</text>
-      <!-- red flame circle -->
-      <circle cx="60" cy="25" r="12" fill="#C8001E"/>
-      <text x="60" y="30" text-anchor="middle" font-size="14" fill="white">🔥</text>
-      <!-- wordmark -->
-      <text x="80" y="22" font-family="'Bebas Neue', sans-serif" font-size="22" fill="white" letter-spacing="2">MINCA</text>
-      <text x="80" y="36" font-family="'Barlow', sans-serif" font-size="10" fill="#7A8AAA" letter-spacing="3" font-weight="700">AIR SYSTEM</text>
-    </svg>
+    <img src="mincalogo.png" alt="Minca Air System">
+    <div class="logo-name">MINCA<small>Air System</small></div>
   </a>
   <ul>
     <li><a href="#usluge">Usluge</a></li>
@@ -781,9 +798,10 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-bg-word">KLIMA</div>
-  <div class="hero-gfx">❄🔥</div>
+  <!-- Real logo as hero watermark -->
+  <img src="mincalogo.png" alt="" class="hero-logo-watermark" aria-hidden="true">
   <div class="hero-stripe"></div>
+
   <div class="hero-content">
     <div class="hero-badge">
       <div class="badge-dot"></div>
@@ -823,90 +841,10 @@
   </div>
 </section>
 
-<!-- LOGO SHOWCASE -->
-<div class="logo-sec">
-  <div class="big-logo-wrap">
-    <!-- Recreated Minca Air System logo in SVG -->
-    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#2B52C4"/>
-          <stop offset="100%" style="stop-color:#1A3A8F"/>
-        </linearGradient>
-        <linearGradient id="redBand" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style="stop-color:#1A3A8F"/>
-          <stop offset="40%" style="stop-color:#C8001E"/>
-          <stop offset="100%" style="stop-color:#C8001E"/>
-        </linearGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- Snowflake -->
-      <text x="385" y="55" font-size="52" fill="#5B8BFF" filter="url(#glow)" opacity="0.9">❄</text>
-
-      <!-- Flame -->
-      <text x="415" y="90" font-size="58" fill="#FF6600" filter="url(#glow)" opacity="0.85">🔥</text>
-
-      <!-- MINCA lettering -->
-      <text x="20" y="98"
-            font-family="'Bebas Neue', Impact, sans-serif"
-            font-size="90"
-            fill="url(#blueGrad)"
-            letter-spacing="6"
-            filter="url(#glow)">MINCA</text>
-
-      <!-- Red swoosh band -->
-      <path d="M10,108 Q250,118 480,105 L480,130 Q250,143 10,133 Z" fill="url(#redBand)" opacity="0.95"/>
-
-      <!-- AIR SYSTEM on band -->
-      <text x="250" y="125"
-            text-anchor="middle"
-            font-family="'Barlow Condensed', 'Barlow', sans-serif"
-            font-size="20"
-            font-weight="800"
-            fill="white"
-            letter-spacing="5">AIR SYSTEM</text>
-
-      <!-- Snowflake icon left -->
-      <circle cx="32" cy="160" r="18" fill="none" stroke="#2B52C4" stroke-width="2"/>
-      <text x="32" y="166" text-anchor="middle" font-size="18" fill="#5B8BFF">❄</text>
-
-      <!-- KLIMATIZACIJA -->
-      <text x="60" y="163"
-            font-family="'Barlow Condensed', sans-serif"
-            font-size="18"
-            font-weight="800"
-            fill="#2B52C4"
-            letter-spacing="1">KLIMATIZACIJA</text>
-
-      <!-- divider -->
-      <line x1="245" y1="150" x2="245" y2="175" stroke="#555" stroke-width="1"/>
-
-      <!-- VENTILACIJA -->
-      <text x="258" y="163"
-            font-family="'Barlow Condensed', sans-serif"
-            font-size="18"
-            font-weight="800"
-            fill="#2B52C4"
-            letter-spacing="1">VENTILACIJA</text>
-
-      <!-- fan icon right -->
-      <circle cx="438" cy="160" r="18" fill="none" stroke="#2B52C4" stroke-width="2"/>
-      <text x="438" y="166" text-anchor="middle" font-size="16" fill="#5B8BFF">🌀</text>
-
-      <!-- tagline -->
-      <text x="250" y="185"
-            text-anchor="middle"
-            font-family="'Barlow', sans-serif"
-            font-size="11"
-            fill="#7A8AAA"
-            letter-spacing="4">KVALITET  •  POVERENJE  •  KOMFOR</text>
-    </svg>
-  </div>
-  <div class="logo-tagline">Kvalitet · Poverenje · Komfor</div>
+<!-- LOGO BAND -->
+<div class="logo-band">
+  <img src="mincalogo.png" alt="Minca Air System logo">
+  <div class="logo-band-sub">Kvalitet · Poverenje · Komfor</div>
 </div>
 
 <!-- USLUGE -->
@@ -916,7 +854,6 @@
   <p class="s-desc">Kompletna rešenja za klimatizaciju i ventilaciju — ugradnja, servis, popravka i čišćenje, sve na jednom mestu.</p>
 
   <div class="usluge-grid">
-
     <div class="usl-card">
       <div class="usl-header">
         <div class="usl-ico">❄️</div>
@@ -926,7 +863,7 @@
         <li>Ugradnja split sistema svih marki</li>
         <li>Montaža unutrašnje i spoljašnje jedinice</li>
         <li>Instalacija bakarnih cevi i elektrike</li>
-        <li>Pode šavanje i testiranje sistema</li>
+        <li>Podešavanje i testiranje sistema</li>
         <li>Savet oko odabira odgovarajućeg uređaja</li>
       </ul>
     </div>
@@ -938,7 +875,7 @@
       </div>
       <ul class="usl-list">
         <li>Redovan godišnji servis klima uređaja</li>
-        <li>Dopuna freona i proverava pritiska</li>
+        <li>Dopuna freona i provera pritiska</li>
         <li>Dijagnostika i otklanjanje kvarova</li>
         <li>Zamena kompresora i delova</li>
         <li>Servis svih marki i modela</li>
@@ -975,7 +912,6 @@
         <li>Održavanje i periodični pregledi</li>
       </ul>
     </div>
-
   </div>
 </section>
 
@@ -1012,7 +948,7 @@
   </div>
 </section>
 
-<!-- UPOZORENJE — zašto je važan redovan servis -->
+<!-- UPOZORENJE -->
 <section class="upoz-sec" id="vaznost">
   <div class="s-label">Ne rizikuj!</div>
   <h2 class="s-title">Da li znaš šta<br>udišeš?</h2>
@@ -1064,7 +1000,7 @@
   </div>
 
   <div class="upoz-banner">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="#C8001E" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#A0314A" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
     <p>Redovan servis = duži vek klime i manja potrošnja! Zakaži odmah na <strong>062 80 48 750</strong> — brza i pouzdana usluga širom Niša i okoline.</p>
   </div>
 </section>
@@ -1107,7 +1043,6 @@
           <div class="lok-sub">Hitni slučajevi — po dogovoru</div>
         </div>
       </div>
-
       <div class="cta-pozovi">
         <p>Zakaži servis odmah</p>
         <a href="tel:0628048750">062 80 48 750</a>
@@ -1131,10 +1066,8 @@
           <li>i šira okolina...</li>
         </ul>
       </div>
-
-      <!-- Quick service info box -->
-      <div style="margin-top:24px; background:var(--dark2); border:1px solid #1e2540; border-radius:4px; padding:28px;">
-        <h4 style="font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; color:var(--white); margin-bottom:18px; letter-spacing:0.5px;">Šta možeš da očekuješ:</h4>
+      <div class="info-box">
+        <h4>Šta možeš da očekuješ:</h4>
         <ul class="usl-list" style="gap:12px;">
           <li>Brz odgovor i zakazivanje u kratkom roku</li>
           <li>Dolazak na adresu u dogovorenom terminu</li>
