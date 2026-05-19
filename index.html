@@ -139,18 +139,20 @@
     overflow: hidden;
   }
 
-  /* Real logo as hero watermark — right side */
-  .hero-logo-watermark {
+
+  .hero-side-image {
     position: absolute;
-    right: -4%;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(360px, 48vw, 680px);
+    width: clamp(340px, 46vw, 620px);
     height: auto;
-    opacity: 0.22;
     pointer-events: none;
     user-select: none;
-    filter: saturate(0.5) brightness(0.7);
+    object-fit: contain;
+  }
+  @media (max-width: 860px) {
+    .hero-side-image { display: none; }
   }
 
   .hero-stripe {
@@ -805,8 +807,8 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <!-- Real logo as hero watermark -->
-  <img src="mincalogo.png" alt="" class="hero-logo-watermark" aria-hidden="true">
+  <!-- Hero side image -->
+  <img src="image1.png" alt="Minca Air System" class="hero-side-image">
   <div class="hero-stripe"></div>
 
   <div class="hero-content">
