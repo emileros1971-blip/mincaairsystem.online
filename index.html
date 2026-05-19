@@ -86,6 +86,11 @@
     gap: 14px;
     text-decoration: none;
   }
+  .nav-logo-img {
+    height: 42px;
+    width: auto;
+    display: block;
+  }
 
   .nav-logo-text {
     font-family: 'Montserrat', sans-serif;
@@ -770,7 +775,17 @@
     nav ul { display: none; }
     .lok-inner { grid-template-columns: 1fr; }
     .hero-stats { gap: 28px; }
-    .hero-image-block { display: none; }
+    /* show hero image inline below content on mobile */
+    .hero { padding-bottom: 30px; }
+    .hero-image-block {
+      position: static;
+      transform: none;
+      width: 100%;
+      max-width: 420px;
+      margin: 30px auto 0;
+      padding: 0;
+      display: block;
+    }
   }
 
   @media (max-width: 480px) {
@@ -784,6 +799,7 @@
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">
+    <img src="mincalogo.png" alt="Minca Air System logo" class="nav-logo-img">
     <div class="nav-logo-text">MINCA<small>Air System</small></div>
   </a>
   <ul>
