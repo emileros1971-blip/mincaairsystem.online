@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minca Air System – Klimatizacija i Ventilacija</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,46 +12,29 @@
     /* Brand blues */
     --blue:        #1E3F9E;
     --blue-dark:   #152D78;
-    --blue-light:  #2B5CE6;
+    --blue-light:  #4A72D4;
     --blue-faint:  #3A5FC0;
-    --blue-pale:   #E8EEFB;
 
     /* Accent red — used ONLY for call-to-action button & floating pill */
     --red-cta:     #C2001A;
     --red-cta-dk:  #9A0015;
 
-    /* Muted warm-red */
+    /* Muted warm-red used sparingly for accent text/borders — NOT harsh */
     --rose:        #A0314A;
     --rose-light:  #C96278;
 
-    /* White theme backgrounds */
-    --bg-base:     #FFFFFF;
-    --bg-mid:      #F4F7FF;
-    --bg-card:     #FFFFFF;
-    --bg-card2:    #EEF3FF;
-    --bg-card3:    #E4ECFF;
+    /* Backgrounds — dark navy-slate, NOT pure black */
+    --bg-base:     #0D1221;
+    --bg-mid:      #111827;
+    --bg-card:     #161E30;
+    --bg-card2:    #1A2238;
+    --bg-card3:    #1E2840;
 
-    /* Text — dark on white */
+    /* Text */
     --gray:        #6B7FA8;
-    --gray-light:  #4A5878;
-    --silver:      #1A2448;
-    --white:       #0D1221;
-
-    /* Borders */
-    --border:      rgba(30,63,158,0.13);
-    --border-med:  rgba(30,63,158,0.22);
-  }
-
-  /* ── MONTSERRAT EXTRABOLD ITALIC + GENTLE 3D ── */
-  .m3d {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    text-shadow:
-      1px 1px 0 rgba(30,63,158,0.18),
-      2px 2px 0 rgba(30,63,158,0.12),
-      3px 3px 0 rgba(30,63,158,0.07),
-      4px 4px 8px rgba(30,63,158,0.08);
+    --gray-light:  #A8B8D8;
+    --silver:      #C8D4E8;
+    --white:       #EEF2FC;
   }
 
   html { scroll-behavior: smooth; }
@@ -69,15 +52,14 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    background: rgba(255,255,255,0.97);
-    border-bottom: 1px solid var(--border);
+    background: #0A0D18;
+    border-bottom: 1px solid rgba(74,114,212,0.3);
     padding: 0 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 68px;
     backdrop-filter: blur(12px);
-    box-shadow: 0 2px 20px rgba(30,63,158,0.07);
   }
 
   .nav-logo {
@@ -87,28 +69,37 @@
     text-decoration: none;
   }
 
-  .nav-logo-text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: 20px;
-    letter-spacing: 1px;
-    color: var(--blue);
-    line-height: 1.1;
-    text-shadow:
-      1px 1px 0 rgba(30,63,158,0.15),
-      2px 2px 4px rgba(30,63,158,0.08);
+  .nav-logo img {
+    height: 52px;
+    width: auto;
+    /* Remove the black background: invert makes black→white,
+       then we use a dark background so white bg blends in.
+       We keep the logo colors vivid by NOT inverting colors —
+       instead just use the image as-is with a dark nav bg behind it,
+       with a slight brightness boost. No blend-mode needed. */
+    border-radius: 4px;
+    background: transparent;
+    /* The logo already has a black bg that matches our nav (#0D1221-ish),
+       so it looks seamless — just make sure it's crisp: */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
-  .nav-logo-text small {
+
+  .logo-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 21px;
+    letter-spacing: 2px;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .logo-name small {
     display: block;
     font-family: 'Barlow', sans-serif;
     font-size: 10px;
     font-weight: 700;
-    font-style: normal;
     letter-spacing: 3px;
     color: var(--gray);
     text-transform: uppercase;
-    text-shadow: none;
   }
 
   nav ul { list-style: none; display: flex; gap: 36px; }
@@ -139,7 +130,7 @@
   .hero {
     min-height: 100vh;
     background:
-      radial-gradient(ellipse 70% 55% at 75% 50%, rgba(30,63,158,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 70% 60% at 80% 50%, rgba(30,63,158,0.18) 0%, transparent 70%),
       var(--bg-base);
     display: flex;
     align-items: center;
@@ -148,33 +139,18 @@
     overflow: hidden;
   }
 
-  /* Hero image — large, right side, welcoming */
-  .hero-image-block {
+  /* Real logo as hero watermark — right side */
+  .hero-logo-watermark {
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: clamp(380px, 48vw, 680px);
-    overflow: hidden;
+    right: -4%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(360px, 48vw, 680px);
+    height: auto;
+    opacity: 0.22;
     pointer-events: none;
-  }
-
-  .hero-image-block img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  /* Gradient fade on left edge of image so it blends into white */
-  .hero-image-block::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 55%;
-    background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0) 100%);
-    z-index: 1;
+    user-select: none;
+    filter: saturate(0.5) brightness(0.7);
   }
 
   .hero-stripe {
@@ -182,17 +158,17 @@
     top: 0; bottom: 0; right: 0;
     width: 4px;
     background: linear-gradient(to bottom, var(--blue-light), var(--rose));
-    opacity: 0.5;
+    opacity: 0.7;
   }
 
-  .hero-content { position: relative; z-index: 2; max-width: 600px; }
+  .hero-content { position: relative; z-index: 2; max-width: 660px; }
 
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: var(--blue-pale);
-    border: 1px solid var(--border-med);
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.35);
     color: var(--blue-light);
     font-size: 11px;
     font-weight: 700;
@@ -214,11 +190,12 @@
     0%,100% { opacity:1; } 50% { opacity:0.15; }
   }
 
+  /* Alert strip — soft warm rose, not fire-engine red */
   .hero-alert {
     display: inline-block;
-    background: rgba(160,49,74,0.07);
-    border: 1px solid rgba(201,98,120,0.3);
-    color: var(--rose);
+    background: rgba(160,49,74,0.18);
+    border: 1px solid rgba(201,98,120,0.4);
+    color: var(--rose-light);
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
     font-size: 15px;
@@ -230,25 +207,20 @@
   }
 
   .hero h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: clamp(50px, 7.5vw, 96px);
-    line-height: 0.95;
-    letter-spacing: 1px;
-    color: var(--blue-dark);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(54px, 8.5vw, 108px);
+    line-height: 0.93;
+    letter-spacing: 2px;
+    color: var(--white);
     margin-bottom: 12px;
-    text-shadow:
-      2px 2px 0 rgba(30,63,158,0.12),
-      4px 4px 0 rgba(30,63,158,0.07),
-      6px 6px 12px rgba(30,63,158,0.08);
   }
 
+  /* Main accent on h1 — vivid blue, not red */
   .hero h1 .accent { color: var(--blue-light); }
 
   .hero-tagline {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(18px, 2.5vw, 30px);
+    font-size: clamp(19px, 2.8vw, 34px);
     font-weight: 700;
     color: var(--gray);
     letter-spacing: 1px;
@@ -259,7 +231,7 @@
   .hero-desc {
     font-size: 16px;
     color: var(--gray-light);
-    max-width: 500px;
+    max-width: 520px;
     margin-bottom: 34px;
     line-height: 1.8;
   }
@@ -276,13 +248,13 @@
     align-items: center;
     gap: 12px;
     font-size: 15px;
-    color: var(--gray-light);
+    color: var(--silver);
     font-weight: 500;
   }
 
   .check-icon {
     width: 20px; height: 20px;
-    background: var(--blue-pale);
+    background: rgba(74,114,212,0.25);
     border: 1px solid var(--blue-faint);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -299,6 +271,7 @@
     flex-wrap: wrap;
   }
 
+  /* Main CTA — this one stays vivid red */
   .btn-pozovi {
     display: inline-flex;
     align-items: center;
@@ -314,24 +287,18 @@
     padding: 17px 40px;
     border-radius: 3px;
     transition: background 0.2s, transform 0.15s;
-    box-shadow: 0 4px 18px rgba(194,0,26,0.25);
   }
   .btn-pozovi:hover { background: var(--red-cta-dk); transform: translateY(-2px); }
 
   .hero-phone-link {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: 24px;
-    color: var(--blue-dark);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--silver);
     text-decoration: none;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     border-bottom: 2px solid var(--blue-faint);
     padding-bottom: 2px;
     transition: color 0.2s;
-    text-shadow:
-      1px 1px 0 rgba(30,63,158,0.1),
-      2px 2px 4px rgba(30,63,158,0.06);
   }
   .hero-phone-link:hover { color: var(--blue-light); }
 
@@ -340,20 +307,14 @@
     gap: 48px;
     margin-top: 54px;
     padding-top: 38px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(74,114,212,0.2);
   }
 
   .stat-num {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: 38px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
     color: var(--blue-light);
     line-height: 1;
-    text-shadow:
-      1px 1px 0 rgba(30,63,158,0.15),
-      2px 2px 0 rgba(30,63,158,0.08),
-      3px 3px 6px rgba(30,63,158,0.07);
   }
 
   .stat-lbl {
@@ -377,18 +338,12 @@
   }
 
   .s-title {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: clamp(34px, 5.5vw, 62px);
-    line-height: 0.97;
-    letter-spacing: 0.5px;
-    color: var(--blue-dark);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 6vw, 70px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    color: var(--white);
     margin-bottom: 20px;
-    text-shadow:
-      2px 2px 0 rgba(30,63,158,0.10),
-      4px 4px 0 rgba(30,63,158,0.06),
-      5px 5px 10px rgba(30,63,158,0.06);
   }
 
   .s-desc {
@@ -399,10 +354,40 @@
     margin-bottom: 52px;
   }
 
+  /* ── LOGO BAND ── */
+  .logo-band {
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(74,114,212,0.18);
+    border-bottom: 1px solid rgba(74,114,212,0.18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 52px 6%;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .logo-band img {
+    width: min(380px, 72vw);
+    height: auto;
+    /* Black bg on logo blends naturally on dark band bg */
+    filter: brightness(1.05) saturate(0.9);
+    border-radius: 8px;
+  }
+
+  .logo-band-sub {
+    font-size: 12px;
+    color: var(--gray);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
   /* ── USLUGE ── */
   .usluge-sec {
     background: var(--bg-mid);
-    border-top: 2px solid rgba(30,63,158,0.1);
+    border-top: 2px solid rgba(30,63,158,0.6);
   }
 
   .usluge-grid {
@@ -414,20 +399,20 @@
 
   .usl-card {
     background: var(--bg-card);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(74,114,212,0.18);
     border-left: 3px solid var(--blue-faint);
     border-radius: 6px;
     padding: 28px 26px 30px;
-    transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+    transition: border-color 0.25s, transform 0.2s, background 0.25s, box-shadow 0.25s;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 12px rgba(30,63,158,0.05);
   }
 
   .usl-card:hover {
+    background: var(--bg-card2);
     border-color: var(--blue-light);
     transform: translateY(-4px);
-    box-shadow: 0 10px 36px rgba(30,63,158,0.13);
+    box-shadow: 0 8px 32px rgba(30,63,158,0.2);
   }
 
   .usl-header {
@@ -436,7 +421,7 @@
     gap: 14px;
     margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(74,114,212,0.15);
     position: relative;
   }
 
@@ -450,8 +435,8 @@
 
   .usl-ico {
     width: 48px; height: 48px;
-    background: var(--blue-pale);
-    border: 1px solid var(--border-med);
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.25);
     border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px;
@@ -462,7 +447,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 19px;
     font-weight: 800;
-    color: var(--blue-dark);
+    color: var(--white);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     line-height: 1.2;
@@ -495,10 +480,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1px;
-    background: var(--border);
+    background: rgba(74,114,212,0.12);
     border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 2px 20px rgba(30,63,158,0.06);
   }
 
   .zas-card {
@@ -525,11 +509,9 @@
   .zas-card:hover::after { transform: scaleX(1); }
 
   .zas-num {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
+    font-family: 'Bebas Neue', sans-serif;
     font-size: 68px;
-    color: rgba(30,63,158,0.06);
+    color: rgba(74,114,212,0.08);
     line-height: 1;
     position: absolute;
     top: 12px; right: 18px;
@@ -542,7 +524,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 21px;
     font-weight: 800;
-    color: var(--blue-dark);
+    color: var(--white);
     margin-bottom: 12px;
     position: relative;
   }
@@ -552,16 +534,17 @@
   /* ── UPOZORENJE ── */
   .upoz-sec {
     background: var(--bg-mid);
-    border-top: 2px solid rgba(160,49,74,0.15);
+    border-top: 2px solid rgba(160,49,74,0.4);
   }
 
+  /* Muted rose label for this section */
   .upoz-sec .s-label { color: var(--rose-light); }
 
   .upoz-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 2px;
-    background: var(--border);
+    background: rgba(74,114,212,0.08);
     border-radius: 6px;
     overflow: hidden;
   }
@@ -579,8 +562,8 @@
 
   .upoz-ico {
     width: 44px; height: 44px;
-    background: rgba(160,49,74,0.07);
-    border: 1px solid rgba(160,49,74,0.2);
+    background: rgba(160,49,74,0.1);
+    border: 1px solid rgba(160,49,74,0.25);
     border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
     font-size: 20px;
@@ -591,7 +574,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 18px;
     font-weight: 800;
-    color: var(--blue-dark);
+    color: var(--white);
     margin-bottom: 5px;
   }
 
@@ -599,8 +582,8 @@
 
   .upoz-banner {
     margin-top: 36px;
-    background: rgba(160,49,74,0.05);
-    border: 1px solid rgba(160,49,74,0.2);
+    background: rgba(160,49,74,0.08);
+    border: 1px solid rgba(160,49,74,0.25);
     border-left: 4px solid var(--rose);
     padding: 22px 28px;
     border-radius: 0 4px 4px 0;
@@ -609,8 +592,8 @@
     gap: 18px;
   }
 
-  .upoz-banner p { font-size: 15px; color: var(--rose); font-weight: 600; line-height: 1.65; }
-  .upoz-banner strong { color: var(--blue-dark); }
+  .upoz-banner p { font-size: 15px; color: var(--rose-light); font-weight: 600; line-height: 1.65; }
+  .upoz-banner strong { color: var(--silver); }
 
   /* ── KONTAKT ── */
   .kontakt-sec { background: var(--bg-base); }
@@ -627,13 +610,13 @@
     align-items: flex-start;
     gap: 18px;
     padding: 22px 0;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(74,114,212,0.14);
   }
 
   .lok-ico {
     width: 44px; height: 44px;
-    background: var(--blue-pale);
-    border: 1px solid var(--border-med);
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.22);
     border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
     font-size: 20px;
@@ -646,7 +629,7 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 20px;
     font-weight: 700;
-    color: var(--blue-dark);
+    color: var(--white);
     text-decoration: none;
     display: block;
     transition: color 0.2s;
@@ -656,18 +639,17 @@
   .lok-sub { font-size: 13px; color: var(--gray); margin-top: 4px; }
 
   .cta-pozovi {
-    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-light) 100%);
-    border: none;
+    background: linear-gradient(135deg, var(--blue-dark) 0%, rgba(30,63,158,0.8) 100%);
+    border: 1px solid rgba(74,114,212,0.35);
     padding: 34px;
     border-radius: 6px;
     text-align: center;
     margin-top: 36px;
-    box-shadow: 0 8px 32px rgba(30,63,158,0.2);
   }
 
   .cta-pozovi p {
     font-size: 12px;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.6);
     letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: 700;
@@ -675,40 +657,66 @@
   }
 
   .cta-pozovi a {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 46px;
     color: #fff;
     text-decoration: none;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     transition: opacity 0.2s;
     display: block;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.15), 4px 4px 8px rgba(0,0,0,0.1);
   }
-  .cta-pozovi a:hover { opacity: 0.85; }
+  .cta-pozovi a:hover { opacity: 0.8; }
 
-  .info-box {
+  .region-box {
     background: var(--bg-card);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(74,114,212,0.18);
     border-radius: 6px;
     padding: 28px;
-    box-shadow: 0 2px 12px rgba(30,63,158,0.05);
+  }
+
+  .region-box h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gray-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .region-list { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .region-list li {
+    background: rgba(74,114,212,0.1);
+    border: 1px solid rgba(74,114,212,0.22);
+    color: var(--gray-light);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+
+  .info-box {
+    margin-top: 20px;
+    background: var(--bg-card);
+    border: 1px solid rgba(74,114,212,0.18);
+    border-radius: 6px;
+    padding: 28px;
   }
 
   .info-box h4 {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 19px;
     font-weight: 800;
-    color: var(--blue-dark);
+    color: var(--white);
     margin-bottom: 18px;
     letter-spacing: 0.5px;
   }
 
   /* ── FOOTER ── */
   footer {
-    background: var(--blue-dark);
-    border-top: none;
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(74,114,212,0.18);
     padding: 38px 6%;
     display: flex;
     align-items: center;
@@ -718,32 +726,26 @@
   }
 
   .foot-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
+    font-family: 'Bebas Neue', sans-serif;
     font-size: 18px;
-    letter-spacing: 2px;
-    color: #fff;
-    text-shadow: 1px 1px 0 rgba(255,255,255,0.1), 2px 2px 6px rgba(0,0,0,0.2);
+    letter-spacing: 2.5px;
+    color: var(--white);
   }
 
-  .foot-logo span { color: var(--blue-light); filter: brightness(1.8); }
-  .foot-mid { font-size: 13px; color: rgba(255,255,255,0.55); text-align: center; line-height: 1.6; }
+  .foot-logo span { color: var(--blue-light); }
+  .foot-mid { font-size: 13px; color: var(--gray); text-align: center; line-height: 1.6; }
 
   .foot-phone {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-style: italic;
-    font-size: 20px;
-    color: rgba(255,255,255,0.85);
-    letter-spacing: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--blue-light);
+    letter-spacing: 2.5px;
     text-decoration: none;
     transition: color 0.2s;
-    text-shadow: 1px 1px 0 rgba(255,255,255,0.1), 2px 2px 5px rgba(0,0,0,0.2);
   }
-  .foot-phone:hover { color: #fff; }
+  .foot-phone:hover { color: var(--white); }
 
-  /* ── FLOATING CTA ── */
+  /* ── FLOATING CTA — stays vivid red ── */
   .float-call {
     position: fixed;
     bottom: 28px; right: 28px;
@@ -761,13 +763,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 4px 28px rgba(194,0,26,0.45);
+    box-shadow: 0 4px 28px rgba(194,0,26,0.55);
     animation: glow 2.2s infinite;
   }
 
   @keyframes glow {
-    0%,100% { box-shadow: 0 4px 28px rgba(194,0,26,0.45); }
-    50%      { box-shadow: 0 4px 52px rgba(194,0,26,0.75); }
+    0%,100% { box-shadow: 0 4px 28px rgba(194,0,26,0.55); }
+    50%      { box-shadow: 0 4px 52px rgba(194,0,26,0.9); }
   }
 
   .float-call:hover { background: var(--red-cta-dk); }
@@ -777,7 +779,6 @@
     nav ul { display: none; }
     .lok-inner { grid-template-columns: 1fr; }
     .hero-stats { gap: 28px; }
-    .hero-image-block { display: none; }
   }
 
   @media (max-width: 480px) {
@@ -791,7 +792,8 @@
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">
-    <div class="nav-logo-text">MINCA<small>Air System</small></div>
+    <img src="mincalogo.png" alt="Minca Air System">
+    <div class="logo-name">MINCA<small>Air System</small></div>
   </a>
   <ul>
     <li><a href="#usluge">Usluge</a></li>
@@ -803,16 +805,14 @@
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <!-- Hero welcome image — replace image1.png in your repo -->
-  <div class="hero-image-block">
-    <img src="image1.png" alt="Minca Air System">
-  </div>
+  <!-- Real logo as hero watermark -->
+  <img src="mincalogo.png" alt="" class="hero-logo-watermark" aria-hidden="true">
   <div class="hero-stripe"></div>
 
   <div class="hero-content">
     <div class="hero-badge">
       <div class="badge-dot"></div>
-      Niš – Brza i pouzdana usluga
+      Niš i okolina – Brza i pouzdana usluga
     </div>
     <div class="hero-alert">⚠️ Ne čekaj da klima crkne na +40!</div>
     <h1>DIŠI PUNIM<br><span class="accent">PLUĆIMA!</span></h1>
@@ -847,6 +847,12 @@
     </div>
   </div>
 </section>
+
+<!-- LOGO BAND -->
+<div class="logo-band">
+  <img src="mincalogo.png" alt="Minca Air System logo">
+  <div class="logo-band-sub">Kvalitet · Poverenje · Komfor</div>
+</div>
 
 <!-- USLUGE -->
 <section class="usluge-sec" id="usluge">
@@ -1002,7 +1008,7 @@
 
   <div class="upoz-banner">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="#A0314A" style="flex-shrink:0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
-    <p>Redovan servis = duži vek klime i manja potrošnja! Zakaži odmah na <strong>062 80 48 750</strong> — brza i pouzdana usluga širom Niša.</p>
+    <p>Redovan servis = duži vek klime i manja potrošnja! Zakaži odmah na <strong>062 80 48 750</strong> — brza i pouzdana usluga širom Niša i okoline.</p>
   </div>
 </section>
 
@@ -1017,7 +1023,7 @@
         <div class="lok-ico">📍</div>
         <div>
           <div class="lok-lbl">Područje rada</div>
-          <div class="lok-val">Niš</div>
+          <div class="lok-val">Niš i okolina</div>
           <div class="lok-sub">Dolazimo na adresu — brzo i pouzdano</div>
         </div>
       </div>
@@ -1051,6 +1057,22 @@
     </div>
 
     <div>
+      <div class="region-box">
+        <h4>📍 Oblasti koje pokrivamo</h4>
+        <ul class="region-list">
+          <li>Niš</li>
+          <li>Niška Banja</li>
+          <li>Sićevo</li>
+          <li>Aleksinac</li>
+          <li>Merošina</li>
+          <li>Ražanj</li>
+          <li>Doljevac</li>
+          <li>Gadžin Han</li>
+          <li>Bela Palanka</li>
+          <li>Pirot</li>
+          <li>i šira okolina...</li>
+        </ul>
+      </div>
       <div class="info-box">
         <h4>Šta možeš da očekuješ:</h4>
         <ul class="usl-list" style="gap:12px;">
@@ -1070,7 +1092,7 @@
 <footer>
   <div class="foot-logo">MINCA <span>AIR SYSTEM</span></div>
   <div class="foot-mid">
-    Niš · 062 80 48 750<br>
+    Niš i okolina · 062 80 48 750<br>
     &copy; 2025 Minca Air System. Sva prava zadržana.
   </div>
   <a href="tel:0628048750" class="foot-phone">062 80 48 750</a>
