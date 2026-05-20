@@ -770,28 +770,77 @@
 
   .float-call:hover { background: var(--red-cta-dk); }
 
+  .float-social {
+    position: fixed;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 998;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .float-social a {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    background: var(--blue);
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 8px 28px rgba(30,63,158,0.24);
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+
+  .float-social a:hover {
+    transform: translateX(-3px);
+    background: var(--blue-light);
+    box-shadow: 0 10px 34px rgba(30,63,158,0.34);
+  }
+
+  .float-social svg {
+    width: 21px;
+    height: 21px;
+    display: block;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     nav ul { display: none; }
     .lok-inner { grid-template-columns: 1fr; }
     .hero-stats { gap: 28px; }
-    /* show hero image inline below content on mobile */
-    .hero { padding-bottom: 30px; }
+    /* show hero image full-width below content on mobile */
+    .hero {
+      min-height: auto;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 100px 6% 34px;
+    }
+    .hero-content {
+      width: 100%;
+      max-width: none;
+    }
     .hero-image-block {
       position: static !important;
       transform: none !important;
-      width: 90% !important;
-      max-width: 560px !important;
-      margin: 30px auto 0 !important;
+      width: min(100%, 620px) !important;
+      max-width: none !important;
+      margin: 34px auto 0 !important;
       padding: 0 !important;
       display: block !important;
+      align-self: center !important;
+      flex: 0 0 auto !important;
       left: auto !important;
       right: auto !important;
       top: auto !important;
     }
     .hero-image-block img {
       width: 100% !important;
-      max-width: 100% !important;
+      max-width: none !important;
       height: auto !important;
       margin: 0 auto !important;
     }
@@ -800,6 +849,9 @@
   @media (max-width: 480px) {
     .hero-actions { flex-direction: column; align-items: flex-start; }
     .float-call .lbl { display: none; }
+    .float-call { right: 18px; bottom: 18px; padding: 14px; }
+    .float-social { right: 18px; gap: 10px; }
+    .float-social a { width: 42px; height: 42px; }
   }
 </style>
 </head>
@@ -1093,6 +1145,20 @@
   </div>
   <a href="tel:0628048750" class="foot-phone">062 80 48 750</a>
 </footer>
+
+<!-- FLOATING SOCIAL BUTTONS -->
+<div class="float-social" aria-label="Minca Air System social media">
+  <a href="https://www.facebook.com/profile.php?id=61586132622373" target="_blank" rel="noopener" aria-label="Facebook">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M14 8.4V6.7c0-.8.5-1 1.1-1h1.7V2.2C16.5 2.1 15.4 2 14.1 2c-2.8 0-4.7 1.7-4.7 4.8v1.6H6.3V12h3.1v10h3.9V12h3.1l.5-3.6H13.3z"/>
+    </svg>
+  </a>
+  <a href="https://www.instagram.com/stories/_minca_air_system_/" target="_blank" rel="noopener" aria-label="Instagram">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm9.7 1.5a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+    </svg>
+  </a>
+</div>
 
 <!-- FLOATING CALL BUTTON -->
 <a href="tel:0628048750" class="float-call">
